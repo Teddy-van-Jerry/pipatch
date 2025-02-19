@@ -58,7 +58,7 @@ class Pipatch:
         if not self.package_dir:
             if self.print_log:
                 print(f"[ERROR] Exiting.")
-            self.has_error = False
+            self.has_error = True
             return False
 
         original_file = self.package_dir / filename
@@ -67,13 +67,13 @@ class Pipatch:
         if not original_file.exists():
             if self.print_log:
                 print(f"[ERROR] File {original_file} does not exist in the package.\n[ERROR] Exiting.")
-            self.has_error = False
+            self.has_error = True
             return False
 
         if not new_file_path.exists():
             if self.print_log:
                 print(f"[ERROR] File {new_file_path} does not exist.\n[ERROR] Exiting.")
-            self.has_error = False
+            self.has_error = True
             return False
 
         # Replace the file
@@ -83,14 +83,16 @@ class Pipatch:
                 print(f"[INFO] Replaced {original_file} with {new_file_path}.")
             return True
         except Exception as e:
-            self.has_error = False
+            self.has_error = True
             print(f"[ERROR] Failed to replace file: {e}")
             return False
 
     def replace_file_from_url(self, filename: str, url: str) -> bool:
         # Download the new file
         temp_file = "temp_new_file.py"
-        if not self.download_file(url, temp_file):
+        try:
+            self.download_file(url, temp_file)
+        except Exception:
             return False
 
         def remove_temp_file():

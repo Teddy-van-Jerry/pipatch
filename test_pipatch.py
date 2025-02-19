@@ -14,9 +14,12 @@ def main():
     print(f"[INFO] Versions match: {versions_match} (patched for: {pipatch.version}, actual: {pipatch.package_version})")
 
     # Download a file
-    url = "https://github.com/psf/requests/blob/main/src/requests/__init__.py"
-    temp_file = "requests.py"
-    pipatch.download_file(url, temp_file)
+    url = "https://raw.githubusercontent.com/psf/requests/refs/heads/main/src/requests/__init__.py"
+    temp_file = "raw_requests.py"
+    try:
+        pipatch.download_file(url, temp_file)
+    except Exception:
+        return
     def remove_temp_file():
         if os.path.exists(temp_file):
             os.remove(temp_file)
