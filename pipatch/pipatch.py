@@ -35,7 +35,7 @@ class Pipatch:
                 print(f"[ERROR] Exiting.")
             return False
         return self.version == self.package_version
-    
+
     def download_file(self, url: str, filename: str):
         try:
             response = requests.get(url, stream=True)
@@ -92,7 +92,7 @@ class Pipatch:
         temp_file = "temp_new_file.py"
         if not self.download_file(url, temp_file):
             return False
-        
+
         def remove_temp_file():
             if os.path.exists(temp_file):
                 os.remove(temp_file)

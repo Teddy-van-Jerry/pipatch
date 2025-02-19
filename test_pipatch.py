@@ -17,10 +17,10 @@ def main():
     url = "https://github.com/psf/requests/blob/main/src/requests/__init__.py"
     temp_file = "requests.py"
     pipatch.download_file(url, temp_file)
-
     def remove_temp_file():
         if os.path.exists(temp_file):
             os.remove(temp_file)
+    remove_temp_file()
 
 if __name__ == "__main__":
     main()
